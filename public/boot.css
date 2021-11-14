@@ -1,0 +1,77 @@
+.brand_left{
+    width:50%;
+    height:auto;
+    float: left;
+    box-sizing: border-box;
+    border-right:1px solid #999;
+    overflow: hidden;
+}
+.brand_left .selectname,.brand_left .selectnamelist{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    font-size: 16px;
+    color:#000;
+    padding:0 20px;
+    box-sizing: border-box;
+}
+.brand_left .selectnamelist{
+    border-bottom: 1px solid #999;
+}
+.brand_left .selectnamelist .brandall{
+    margin-right:20px;
+}
+.brand_left .selectnamelist label{
+    font-size: 12px;
+    font-weight: normal;
+}
+.brand_left .selectnamelist label input{
+    margin-right:10px;
+}
+.brand_left .searchbrand{
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    padding:0 20px;
+    box-sizing: border-box;
+    font-size: 13px;
+    color:#000;
+}
+.brand_left .searchbrand input{
+    width:150px;
+    height:25px;
+    margin-left:10px;
+}
+.brand_left .brandlist,.brand_right .checklist{
+    width:100%;
+    padding:0 20px;
+}
+.brand_left .brandlist ul,.brand_right .checklist ul{
+    display: flex;
+    margin:0;
+    padding:0;
+    width:100%;
+    flex-wrap: wrap;
+}
+.brand_left .brandlist ul li,.brand_right .checklist ul li{
+    justify-content: space-between;
+    font-size: 12px;
+    width:200px;
+    height:30px;
+    line-height: 30px;
+    list-style: none;
+}
+.brand_right{
+    width:50%;
+    height:auto;
+    float: right;
+}
+.brand_right .title{
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    font-size: 15px;
+    color:#000;
+    padding: 0 20px;
+    box-sizing: border-box;
+}

@@ -1,0 +1,299 @@
+/* =============================================================================
+   HTML5 CSS Reset Minified - Eric Meyer
+   ========================================================================== */
+
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+body{line-height:1}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+nav ul{list-style:none}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;text-decoration:none}
+mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
+del{text-decoration:line-through}
+abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
+table{border-collapse:collapse;border-spacing:0}
+hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
+input,select{vertical-align:middle}
+li{list-style:none}
+
+
+/* =============================================================================
+   My CSS
+   ========================================================================== */
+
+/* ---- base ---- */
+html,body{overflow:hidden;overflow-y:auto;}
+
+html,body{ 
+	width:100%;
+	height:100%;
+}
+
+html{
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body{
+  font:normal 75% Arial, Helvetica, sans-serif;
+}
+
+canvas{
+  display:block;
+  vertical-align:bottom;
+}
+
+
+/* ---- stats.js ---- */
+
+.count-particles{
+  background: #000022;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 80px;
+  color: #13E8E9;
+  font-size: .8em;
+  text-align: left;
+  text-indent: 4px;
+  line-height: 14px;
+  padding-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+.js-count-particles{
+  font-size: 1.1em;
+}
+
+#stats,
+.count-particles{
+  -webkit-user-select: none;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#stats{
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+.count-particles{
+  border-radius: 0 0 3px 3px;
+}
+
+
+/* ---- particles.js container ---- */
+
+#particles-js{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+
+
+/* ---- Main UI ---- */
+
+body {
+        font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+#main{
+  margin:0 auto;
+}
+
+#footer {
+    display: table;
+    margin: 30px auto;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+#new-container {
+  padding-top: 5em;
+}
+
+#new-title {
+    text-align: center;
+    color: #fff;
+    background: #6A5ACD;
+    width: 12em;
+    margin: 0 auto 60px auto;
+    font-size: 26px;
+    border-radius:5px;
+}
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1000;
+}
+
+#emotion, #musicname,#face_age{
+  width:360px ;
+  text-align: center ;
+  margin:10px auto;
+  font-size: 16px;
+}
+
+#musicsort{
+  width:400px;
+  text-align: center;
+  margin:10px auto;
+  font-size: 15px;
+}
+
+#musicname {
+  width:400px ;
+  text-align: center ;
+  margin:10px auto;
+  font-size: 16px;
+}
+
+.sort{
+  margin:10px auto;
+
+  width:320px;
+  height: 90px;
+  border-bottom:solid 1px grey;
+  
+}
+.title{
+  height:20%;
+  width: 50%;
+  font-size: 14px;
+  color: grey;
+
+}
+.title_content{
+  margin:5px auto;
+  height: 80%;
+}
+.sort img{
+  float: left;
+  height:100%;
+  width:100%;
+  
+}
+.left{
+  top:0;
+  display: inline-block;
+  position: relative;
+  float: left;
+  width:30px;
+  height:30px;
+}
+.content{
+  display: inline-block;
+  float: left;
+  height: 100%;
+  width: 90%;
+  
+}
+
+
+#canvas {
+  margin: 0 auto;
+}
+#video{
+  margin:0 auto;
+}
+
+#audio {
+  margin-top: 40px;
+  position: relative;
+  left:50%;
+  transform: translateX(-50%);
+}
+
+#snap {
+  width: 32px;
+  height: 32px;
+  margin: 2px auto;
+}
+
+#snap img {
+  width: 100%;
+}
+#music_cover {
+  width: 50px;
+  height: 50px;
+  margin: 2px auto;
+}
+
+#snap img {
+  width: 100%;
+}
+
+#fenxi{
+  float: left;
+  position:relative;
+  left: 55%;
+  width:32px;
+  height:32px;
+  margin:2px auto;
+}
+#beauty{
+  float: left;
+  position:relative;
+ left: 50%;
+  width:32px;
+  height:32px;
+  margin:2px auto;
+}
+#yanzhi{
+  float: left;
+  position:relative;
+  left: 20%;
+
+  width:32px;
+  height:32px;
+  margin:2px auto;
+
+}
+#jingzhui{
+    float: left;
+    position: relative;
+    left: 0px;
+    width: 32px;
+    height: 32px;
+    margin: 2px auto;
+
+}
+#button{
+  width: 400px;
+  height: 50px;
+  margin:0 auto;
+  margin-top: 20px;
+}
+
+#button img {
+  width: 100%;
+}
+#cover {
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cover img {
+  width: 60px;
+  height: 60px;
+}
+
+#music_cover{
+  
+}

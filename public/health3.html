@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Face Show</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+
+<body>
+ <div id="particles-js">
+</div>
+<div id="new-container">
+       <div id="main-container" style="text-align: center;">
+           <div id="new-title">颈椎健康</div>
+         
+       </div>
+      <div id="main" style="width: 350px;height:400px;"></div>
+       <div class="sort">
+        <div class="left"><img src="src/竖轴旋转.png" alt=""></div>
+        <div class="content">
+          <div class="title">左右旋转功能</div>
+          <div class="title_content" id="zuoyou"></div>
+        </div>
+      </div>
+
+       <div class="sort">
+        <div class="left"><img src="src/横轴旋转.png" alt=""></div>
+        <div class="content">
+          <div class="title">上下旋转功能</div>
+          <div class="title_content" id="shangxia"></div>
+        </div>
+      </div>
+
+
+       <div class="sort">
+        <div class="left"><img src="src/顺时针旋转.png" alt=""></div>
+        <div class="content">
+          <div class="title">顺时针旋转功能</div>
+          <div class="title_content" id="pingmian"></div>
+        </div>
+      </div>
+  
+
+       <div id="footer">
+           <span>
+               
+           </span>
+       </div>
+   </div>
+<script src="particles.js"></script>
+<script src="js/app.js"></script>
+
+ <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        console.log(1);//向上45
+        var getLocalData= localStorage.getItem('returnData');
+        console.log(getLocalData);
+        var jsonObj = JSON.parse(getLocalData);
+        //var jsonObj=JSON.parse(getLocalData);
+        console.log(jsonObj.face_list[0].emotion);
+        console.log(jsonObj);
+
+        var yaw1=jsonObj.face_list[0].angle.yaw;//左右旋角
+        var pitch1=jsonObj.face_list[0].angle.pitch;//上下旋角
+        var roll1=jsonObj.face_list[0].angle.roll;//平面旋角，顺时针，逆时针
+
+        console.log(2);//顺时针45
+        var getLocalData2= localStorage.getItem('returnData2');
+        console.log(getLocalData2);
+        var jsonObj = JSON.parse(getLocalData2);
+        //var jsonObj=JSON.parse(getLocalData);
+        console.log(jsonObj.face_list[0].emotion);
+        console.log(jsonObj);
+        var yaw2=jsonObj.face_list[0].angle.yaw;//左右旋角
+        var pitch2=jsonObj.face_list[0].angle.pitch;//上下旋角
+        var roll2=jsonObj.face_list[0].angle.roll;//平面旋角，顺时针，逆时针
+        
+
+        console.log(3);//左右45
+        var getLocalData3= localStorage.getItem('returnData3');
+        console.log(getLocalData2);
+        var jsonObj = JSON.parse(getLocalData3);
+        //var jsonObj=JSON.parse(getLocalData);
+        console.log(jsonObj.face_list[0].emotion);
+        console.log(jsonObj);
+        var yaw3=jsonObj.face_list[0].angle.yaw;//左右旋角
+        var pitch3=jsonObj.face_list[0].angle.pitch;//上下旋角
+        var roll3=jsonObj.face_list[0].angle.roll;//平面旋角，顺时针，逆时针
+        var myChart = echarts.init(document.getElementById('main'));
+
+        function getLeftGrade(yaw1,yaw2,ya3)
+        {
+            
+            var grade={
+              grade1:Math.abs(yaw1-0),
+              grade2:Math.abs(yaw2-0),
+              grade3:Math.abs(yaw3-0),
+            }            
+
+            return grade;
+        }
+
+         function getUpGrade(pitch1,pitch2,pitch3)
+        {
+            var grade={
+                grade1:Math.abs(pitch1-0),
+                grade2:Math.abs(pitch2-0),
+                grade3:Math.abs(pitch3-0),          
+              }
+           
+            return grade;
+        }
+
+        function getRollGrade(roll1,roll2,roll3)
+        {
+          var grade={
+             grade1:Math.abs(roll1-0),
+             grade2:Math.abs(roll2-0),
+             grade3:Math.abs(roll3-0),
+
+          }
+            return grade;
+        }
+        grade1=getLeftGrade(yaw1,yaw2,yaw3);//左右旋角
+        grade2=getUpGrade(pitch1,pitch2,pitch3);//上下旋角
+        grade3=getRollGrade(roll1,roll2,roll3);//平面旋角
+
+        zuoyougrade=((grade1.grade1+grade1.grade2+grade1.grade3)/3).toFixed(2);
+        zuoyougrade=100-zuoyougrade;
+
+        shangxiagrade=((grade2.grade1+grade2.grade2+grade2.grade3)/3).toFixed(2);
+        shangxiagrade=100-shangxiagrade;
+
+        pingmiangrade=((grade3.grade1+grade3.grade2+grade3.grade3)/3).toFixed(2);
+        pingmiangrade=100-pingmiangrade;
+
+                if(zuoyougrade>90)
+                  {
+                   document.querySelector(
+                    "#zuoyou"
+                  ).textContent = `左右功能的分数是${zuoyougrade},保持得很好，希望再接再厉`;
+                 }
+                else if(zuoyougrade>80)
+                {
+                  document.querySelector(
+                    "#zuoyou"
+                  ).textContent = `左右功能的分数是${(zuoyougrade)}，希望注意休息，适当按摩，按摩百劳穴缓解颈椎疲劳，两手交叉放在颈部，按摩50下，缓解颈部肌肉`;
+                }
+                else
+                {
+                  document.querySelector(
+                    "#zuoyou"
+                  ).textContent = `左右功能的分数是${(zuoyougrade)}，您的颈椎健康应该引起重视，希望在专业医疗人士下进行康复训练`;
+                }
+
+
+                  if(shangxiagrade>90)
+                  {
+                   document.querySelector(
+                    "#shangxia"
+                  ).textContent = `上下功能的分数是${shangxiagrade},保持得很好，希望再接再厉`;
+                 }
+                else if(shangxiagrade>80)
+                {
+                  document.querySelector(
+                    "#shangxia"
+                  ).textContent = `上下功能的分数是${(shangxiagrade)}，适当进行户外锻炼，防止颈椎肌肉的退化；进食补肾养髓的食物，强健筋骨`;
+                }
+                else
+                {
+                  document.querySelector(
+                    "#shangxia"
+                  ).textContent = `上下功能的分数是${(shangxiagrade)}，您的颈椎健康应该引起重视，希望在专业医疗人士下进行康复训练`;
+                }
+
+                   if(pingmiangrade>90)
+                  {
+                   document.querySelector(
+                    "#pingmian"
+                  ).textContent = `平面功能的分数是${pingmiangrade},保持得很好，希望再接再厉`;
+                 }
+                else if(pingmiangrade>80)
+                {
+                  document.querySelector(
+                    "#pingmian"
+                  ).textContent = `平面功能的分数是${(pingmiangrade)},选择高度大约一个拳头高的枕头，软硬适中的床垫，对颈椎有较好的支撑作用。`;
+                }
+                else
+                {
+                  document.querySelector(
+                    "#pingmian"
+                  ).textContent = `平面功能的分数是${(pingmiangrade)}，您的颈椎健康应该引起重视，希望在专业医疗人士下进行康复训练`;
+                }
+
+        // 指定图表的配置项和数据
+       option = {
+        title: {
+            //text: '颈椎健康'
+        },
+        tooltip: {},
+        legend: {
+            data: ["向上45°","顺时针45°","右旋转45°"],
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+             
+               color: '#222',
+                backgroundColor: '#222',
+                borderRadius: 3,
+                padding: [3, 5]
+                
+                
+
+
+            },
+            indicator: [
+               { name: '上下', max: 100},
+               { name: '顺时针', max: 100},
+               { name: '左右', max: 100},
+              
+            ]
+        },
+        series: [{
+            name: '颈椎',
+            type: 'radar',
+            // areaStyle: {normal: {}},
+            data : [
+                {
+                    value : [100-grade1.grade1, 100-grade2.grade1, 100-grade3.grade1],
+                    name : '向上45°'
+                }, 
+                {
+                    value : [100-grade1.grade3, 100-grade2.grade3, 100-grade3.grade3],
+                    name : '顺时针45°'
+                },
+                {
+                    value : [100-grade1.grade2, 100-grade2.grade2, 100-grade3.grade2],
+                    name : '右旋转45°'
+                }
+            ]
+        }]
+};
+
+/*setInterval(function () {
+    option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+    myChart.setOption(option, true);
+},2000);*/
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<script>
+function compare(x, y) {  
+				var z = 0;  
+				var s = x.length + y.length;;  
+				var j=0,i=0;
+			
+				x.sort();  
+				y.sort();  
+				var a = x[i];  
+				var b = y[j];  
+			
+				while(a !== undefined && b !== undefined) {  
+						if (a === b) {  
+								z++;  
+								a = x[++i];  
+								b = y[++j];  
+						} else if (a < b) {  
+								a = x[++i];  
+						} else if (a > b) {  
+								b = y[++j];  
+						}  
+				}  
+				return z/s * 200;  
+		}  
+  
+console.log(compare(['123', '中文', 'hello'], ['123', '中文', 'hello']))  
+console.log(compare(['123', '中文', 'hello'], ['123', '中文', 'hello'].sort()))  
+console.log(compare(['123', '中文', 'hello'], ['123', '中文', 'hello'].reverse()))  
+console.log(compare(['123', '中文', 'hello','中2文'], ['12', '中2文', '123','中文3']))  
+console.log(compare(['123', '中文', 'hello'], ['中文', 'world', '456']))  
+console.log(compare(['123', '中3文', 'hello'], ['中文', 'world', '汉字'])) 
+
+</script>

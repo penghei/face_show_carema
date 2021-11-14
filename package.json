@@ -1,0 +1,34 @@
+{
+  "name": "Music",
+  "version": "1.0.0",
+  "description": "能根據人臉识别情绪的网页音乐播放器",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "apicache": "^0.9.0",
+    "big-integer": "^1.6.17",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "intelli-espower-loader": "^1.0.1",
+    "lint-staged": "^4.0.3",
+    "mocha": "^3.2.0",
+    "power-assert": "^1.4.2",
+    "prettier": "^1.5.3"
+  }
+}
