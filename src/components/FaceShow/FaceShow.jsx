@@ -5,7 +5,7 @@ import FaceShowDetail from './FaceShowChildren/FaceShowDetail/FaceShowDetail'
 
 function FaceShow(props) {
     return (
-        <div>
+        <div className="faceShowMain">
             <div className="cameraBlock">
                 <FaceCarema></FaceCarema>
             </div>

@@ -2,7 +2,6 @@
 .musicplayermain {
   @include flexBoxCol();
   height: 100%;
-  width:50%;
   justify-content: center;
   .progress{
     @include flexBoxRow();
