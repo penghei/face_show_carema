@@ -23,7 +23,6 @@
     "uuidjs": "^4.2.9",
     "web-vitals": "^1.0.1"
   },
-  "proxy":"https://aip.baidubce.com/rest/2.0/face/v3/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

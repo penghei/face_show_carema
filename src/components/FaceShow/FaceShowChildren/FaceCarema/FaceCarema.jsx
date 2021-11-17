@@ -44,11 +44,12 @@ export default function FaceCarema() {
         // context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height); //绘制当前画面，形成图片
         videoRef.current.pause(); //暂停摄像头视频流
         StreamTrack.current && StreamTrack.current.stop();    // 关闭摄像头 mediaStreamTrack 是上面setMediaStreamTrack方法存储得到的
-        let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100); 
-        console.log(imgURL)
-        getAIApi(imgURL)
+        let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100);  
+        let newUrl = imgURL.split(",")[1]
+        getAIApi(newUrl)
     }
     function getAIApi(imgURL) {
+        console.log(imgURL)
         axios({
             method:'POST',
             url:'/detect?access_token=24.ec99833ca00f0d306e38a1087097b69f.2592000.1639665443.282335-25166469',
