@@ -11,4 +11,14 @@ module.exports = function (app) {
       },
     })
   );
+  app.use(
+    "/apc",
+    proxy.createProxyMiddleware({
+      target: "http://localhost:4000",
+      changeOrigin: true,
+      pathRewrite: {
+        "^/apc": "",
+      },
+    })
+  );
 };

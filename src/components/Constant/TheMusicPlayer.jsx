@@ -115,6 +115,7 @@ function TheMusicPlayer(props) {
         }
     })
     useEffect(() => {
+        if(songList.length !== 0)
         playSong()
         // eslint-disable-next-line
     }, [thisSong, songList])

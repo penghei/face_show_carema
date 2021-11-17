@@ -5,8 +5,7 @@ import { Drawer, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import Pubsub from 'pubsub-js'
 import './css/ThePlayingList.scss'
-
-
+import axios from 'axios';
 
 function ThePlayingList(props) {
     const songList = props.songListFromStore;
@@ -32,8 +31,57 @@ function ThePlayingList(props) {
         } else if (screenWidth < 500) {
             setDrawerWidth(250)
         }
-
     }, [screenWidth]);
+    useEffect(() => {
+        Pubsub.subscribe('selectedListId', (_, data) => {
+            if (data) {
+                axios.get(`/apc/playlist/detail?id=${Number(data)}`)
+                    .then(res => {
+                        let allSongs = []
+                        res.data.playlist.tracks.forEach(obj => {
+                            allSongs.push(obj)
+                        })
+                        getAllSongs(allSongs)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        })
+        // eslint-disable-next-line
+    }, [])
+    useEffect(() => {
+        if (songList.length !== 0) {
+            props.setPlayingSong(songList[0])
+        }
+        // eslint-disable-next-line
+    }, [songList])
+    function getAllSongs(allSongs) {//这是每一首个的id组成的数组,可用来请求详情
+        let allSongsId = []
+        allSongs.forEach(obj => {
+            allSongsId.push(obj.id.toString())
+        })
+        axios.get(`/apc/song/url?id=${allSongsId.toString()}`)
+            .then(res => {
+                res.data.data.forEach(songUrlObj => {
+                    let foundSong = allSongs.find(songDetailObj => {//在歌曲详情中查找歌曲名等信息
+                        return songDetailObj.id === songUrlObj.id
+                    })
+                    if (foundSong) {
+                        let displaySongObj = {
+                            name: foundSong.name,
+                            id: songUrlObj.id,
+                            url: songUrlObj.url,
+                            singer: foundSong.ar[0].name,
+                            cover: foundSong.al.picUrl,
+                        }
+                        props.addToPlayingList(displaySongObj)
+                    }
+
+                })
+
+            })
+    }
     return (
         <div>
             <div onClick={showDrawer}>
@@ -69,7 +117,8 @@ const ThePlayingListUI = connect(
     }),
     dispatch => ({
         setPlayingSong: (value) => dispatch({ type: 'setPlayingSong', data: value }),
-        emptyPlayingList: () => dispatch({ type : 'emptyPlayingList', data: []})
+        emptyPlayingList: () => dispatch({ type: 'emptyPlayingList', data: [] }),
+        addToPlayingList: (value) => dispatch({ type: 'addToPlayingList', data: value })
     })
 )(ThePlayingList)
 export default withRouter(ThePlayingListUI)
