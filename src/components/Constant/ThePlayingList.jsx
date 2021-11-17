@@ -34,6 +34,7 @@ function ThePlayingList(props) {
     }, [screenWidth]);
     useEffect(() => {
         Pubsub.subscribe('selectedListId', (_, data) => {
+            console.log(data)
             if (data) {
                 axios.get(`/apc/playlist/detail?id=${Number(data)}`)
                     .then(res => {

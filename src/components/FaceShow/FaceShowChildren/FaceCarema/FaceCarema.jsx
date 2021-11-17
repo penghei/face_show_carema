@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { CameraOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import { connect } from 'react-redux'
 import './FaceCamera.scss'
 import PubSub from 'pubsub-js';
 import axios from 'axios';
 
-export default function FaceCarema() {
+function FaceCarema(props){
     const videoRef = useRef(null)
     const canvasRef = useRef(null)
     const StreamTrack = useRef(null)
@@ -18,6 +19,7 @@ export default function FaceCarema() {
         disgust: "402924168",
         surprise: "996728953"
     };
+    // const uploadPic = useRef(null)
     const [caremaOff, setCaremaOff] = useState('')
     if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
         getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
@@ -41,7 +43,7 @@ export default function FaceCarema() {
             var CompatibleURL = window.URL || window.webkitURL;
             videoRef.current.src = CompatibleURL.createObjectURL(stream);
         }
-        videoRef.current.play();
+        videoRef.current.play().catch(err=>{})
     }
     function error(error) {
         console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
@@ -59,7 +61,19 @@ export default function FaceCarema() {
         let newUrl = imgURL.split(",")[1]
         getAIApi(newUrl)
     }
+    // function picToBase64() {
+    //     let file = uploadPic.current.files[0]
+    //     var oFReader = new FileReader();
+    //     oFReader.readAsDataURL(file)
+    //     oFReader.onload = (e) => {
+    //         let res = e.target.result
+    //         console.log(res)
+    //         let newUrl = res.split(",")[1]
+    //         getAIApi(newUrl)
+    //     }
+    // }
     function getAIApi(imgURL) {
+       
         axios({
             method: 'POST',
             url: '/api/detect?access_token=24.ec99833ca00f0d306e38a1087097b69f.2592000.1639665443.282335-25166469',
@@ -72,11 +86,13 @@ export default function FaceCarema() {
                 face_field: 'emotion'
             }
         }).then(res => {
-            let emo = res.data.result.face_list[0]?.emotion
+            let emo = res.data.result.face_list[0]?.emotion.type
             if (emo) {
+                console.log(emo)
                 for (let key in playingListSelect) {
                     if (key === emo) {
                         PubSub.publish("selectedListId", playingListSelect[key])
+                        PubSub.publish("emo",key)
                     }
                 }
             }
@@ -92,6 +108,16 @@ export default function FaceCarema() {
             <span className="takePhoto" onClick={uploadImage}>
                 <CameraOutlined style={{ fontSize: '50px' }} />
             </span>
+            {/* <input type="file" ref={uploadPic} onChange={picToBase64} /> */}
         </div>
     )
 }
+
+export default connect(
+    state => ({
+        songListFromStore: state.playingList,
+    }),
+    dispatch => ({
+        setEmotions: (value) => dispatch({ type: 'setEmotions', data: value }),
+    })
+)(FaceCarema)
