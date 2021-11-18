@@ -16,7 +16,6 @@ const FaceShowDetail = (props) => {
             emotion: emotionFromStore
         })
     }, [playingSongFromStore, songListFromStore, emotionFromStore])
-    // },[])
     return (
         <div className="face-show-detail">
             <div className="face-show-detail-content">

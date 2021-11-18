@@ -98,7 +98,7 @@ const Musiclyrics = (props) => {
                             style={index===activeIndex-1?{fontWeight:'bolder',color:'black'}:{fontWeight:'normal'}}
                             >{obj.inner}</p>
                         )
-                    })
+                    })||<h2>暂时没有正在播放的音乐哦</h2>
                 }
             </div>
         </div>
