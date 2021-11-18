@@ -1,4 +1,5 @@
 import React from 'react'
+import "./FaceShow.scss"
 import { withRouter } from 'react-router'
 import FaceCarema from './FaceShowChildren/FaceCarema/FaceCarema'
 import FaceShowDetail from './FaceShowChildren/FaceShowDetail/FaceShowDetail'
