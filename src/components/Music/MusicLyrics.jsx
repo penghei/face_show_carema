@@ -87,6 +87,7 @@ const Musiclyrics = (props) => {
                 <p>歌手:{theSong.singer}</p>
             </div>
             <div className="mainLyrics">
+                <div className="mask"></div>
                 {
                     partLyric.map((obj, index) => {
                         return (

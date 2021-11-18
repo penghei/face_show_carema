@@ -4,6 +4,10 @@
   @include flexBoxRow();
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient(#CDCDCD,#FFFFFF);
+  height: 70vh;
+  border-radius: 20px;
+  
 
   .sider {
     @include flexBoxCol();
@@ -27,9 +31,11 @@
         img {
           height: 250px;
           width: 250px;
+          border-radius: 10px;
         }
       }
       .songLyrics {
+
         min-width: 400px;
         max-width: 500px;
         overflow: hidden;

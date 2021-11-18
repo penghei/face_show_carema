@@ -17,6 +17,7 @@ function MusicDetailPage(props) {
                         <img src={theSong.cover || "https://i.loli.net/2021/11/03/CM6T9AamqOUgRzb.png"} alt="网易云音乐"></img>
                     </div>
                     <div className="songLyrics">
+                        
                         <MusicLyrics></MusicLyrics>
                     </div>
                     <div className="close" onClick={backToMain}>x</div>
