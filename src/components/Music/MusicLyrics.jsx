@@ -83,24 +83,7 @@ const Musiclyrics = (props) => {
         <div className="lyricsMain">
             <div className="songTitle">
                 <p>{theSong.name}</p>
-<<<<<<< HEAD
-                <p>歌手:{theSong.singer}</p>
-            </div>
-            <div className="mainLyrics">
-                <div className="mask"></div>
-                {
-                    partLyric.map((obj, index) => {
-                        return (
-                            <p
-                            key={index}
-                            style={index===activeIndex-1?{fontWeight:'bolder',color:'black'}:{fontWeight:'normal'}}
-                            >{obj.inner}</p>
-                        )
-                    })
-                }
-=======
                 <Tag color="geekblue">歌手：{theSong.singer}</Tag>
->>>>>>> d32b6b28ce29ef78f2a641a962af911a0d9d3ecd
             </div>
             {
                 partLyric.length

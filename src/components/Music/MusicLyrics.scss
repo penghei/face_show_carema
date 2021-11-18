@@ -1,41 +1,4 @@
 @import '../../myStyle.scss';
-<<<<<<< HEAD
-.lyricsMain{
-    @include flexBoxCol();
-    .songTitle{
-        height: 10%;
-        width: 600px;
-        margin-left:8vw;
-        p:nth-of-type(1){
-            padding: 0;
-            font-size: 20px;
-            font-weight:800;
-        }
-        p:nth-of-type(2){
-            font-size: 15px;
-            color: gray;
-        }
-    }
-    .mainLyrics{
-        position:relative;
-        .mask{
-            height:40px;
-            width:90%;
-             background-image: linear-gradient(to top, rgba(200,200,200,0), rgba(235,235,235,0.8) );
-             
-            //background:rgba(0,0,0,.5);
-           // filter: blur(20px);
-            //opacity:0.8;
-            position: absolute;;
-            border-radius: 5px;
-          }
-        p{
-            color: rgb(90, 90, 90);
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-=======
 @import "../common/colors";
 
 .lyricsMain {
@@ -63,7 +26,6 @@
       color: #666;
       font-size: 16px;
       margin-bottom: 5px;
->>>>>>> d32b6b28ce29ef78f2a641a962af911a0d9d3ecd
     }
   }
 
