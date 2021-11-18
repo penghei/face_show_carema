@@ -14,6 +14,10 @@
     margin: 0 auto 8px;
     border-radius: 5px;
     background: $processBcg;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .progressbar {
