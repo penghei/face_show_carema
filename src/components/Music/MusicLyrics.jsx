@@ -3,23 +3,22 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router';
 import PubSub from 'pubsub-js';
 import axios from 'axios';
-import useLocalStorageState from 'use-local-storage-state'
 import "./MusicLyrics.scss"
 
 const Musiclyrics = (props) => {
     const theSong = props.selectedSongFromStore
     const [allLyric, setAllLyric] = useState([])
-    const [activeIndex,setActIndex] = useState(0)
-    const [partLyric, setPartLyric ,{removeItem}] = useLocalStorageState('partLyricStore',[])
+    const [activeIndex, setActIndex] = useState(0)
+    const [partLyric, setPartLyric] = useState([])
     useEffect(() => {
         if (JSON.stringify(theSong) !== '{}') {
             axios.get(`/apc/lyric?id=${theSong.id}`)
                 .then(res => {
                     let lyTimes = [], lyInners = []
-                    if(res.data.lrc === undefined){
+                    if (res.data.lrc === undefined) {
                         setPartLyric([{
-                            time:0,
-                            inner:'暂无歌词,享受音乐'
+                            time: 0,
+                            inner: '暂无歌词,享受音乐'
                         }])
                         return;
                     }
@@ -33,7 +32,7 @@ const Musiclyrics = (props) => {
                     })
                     matchLyric(lyTimes, lyInners)
                 })
-                .catch(err=>{
+                .catch(err => {
                     console.log(err)
                 })
         }
@@ -46,25 +45,19 @@ const Musiclyrics = (props) => {
             if (foundIndex !== -1) {
                 let foundIndexDec = foundIndex - 5 < 0 ? 0 : foundIndex - 5
                 let foundIndexInc = foundIndex + 6 > allLyric.length ? allLyric.length : foundIndex + 6
-                if(foundIndex <= 5){
-                    setActIndex(foundIndex+1)
-                }else if(foundIndex <= 3){
-                    foundIndexInc =  10 + foundIndex
-                }else{
+                if (foundIndex <= 5) {
+                    setActIndex(foundIndex + 1)
+                } else if (foundIndex <= 3) {
+                    foundIndexInc = 10 + foundIndex
+                } else {
                     setActIndex(6)
                 }
                 let part = allLyric.slice(foundIndexDec, foundIndexInc)
                 setPartLyric(part)
             }
         })
-        let sub_1 = PubSub.subscribe("changePlayingSong",(_,data)=>{
-            if(data){
-                removeItem();
-            }
-        })
         return () => {
             PubSub.unsubscribe(sub)
-            PubSub.unsubscribe(sub_1)
         }
     })
     function matchLyric(lyTimes, lyInners) {
@@ -85,22 +78,26 @@ const Musiclyrics = (props) => {
     }
     return (
         <div className="lyricsMain">
-            <div className="songTitle">
-                <p>{theSong.name}</p>
-                <p>歌手:{theSong.singer}</p>
-            </div>
-            <div className="mainLyrics">
-                {
-                    partLyric.map((obj, index) => {
-                        return (
-                            <p
-                            key={index}
-                            style={index===activeIndex-1?{fontWeight:'bolder',color:'black'}:{fontWeight:'normal'}}
-                            >{obj.inner}</p>
-                        )
-                    })||<h2>暂时没有正在播放的音乐哦</h2>
-                }
-            </div>
+            {
+                partLyric.length
+                    ? (<><div className="songTitle">
+                        <p>{theSong.name}</p>
+                        <p>歌手:{theSong.singer}</p>
+                    </div><div className="mainLyrics">
+                            {
+                                (partLyric.map((obj, index) => {
+                                    return (
+                                        <p
+                                            key={index}
+                                            style={index === activeIndex - 1 ? { fontWeight: 'bolder', color: 'black' } : { fontWeight: 'normal' }}
+                                        >{obj.inner}</p>
+                                    );
+                                }))
+                            }
+                        </div></>)
+                    : (<h2 className="replace">暂时没有正在播放的音乐哦</h2>)
+            }
+
         </div>
     );
 }

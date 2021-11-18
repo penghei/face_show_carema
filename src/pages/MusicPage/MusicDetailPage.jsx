@@ -6,9 +6,6 @@ import './MusicDetailPage.scss'
 
 function MusicDetailPage(props) {
     const theSong = props.selectedSongFromStore
-    function backToMain(){
-        props.history.push('/main')
-    }
     return (
         <div className="musicmain">
             <div className="main">
@@ -19,7 +16,6 @@ function MusicDetailPage(props) {
                     <div className="songLyrics">
                         <MusicLyrics></MusicLyrics>
                     </div>
-                    <div className="close" onClick={backToMain}>x</div>
                 </div>
             </div>
         </div>

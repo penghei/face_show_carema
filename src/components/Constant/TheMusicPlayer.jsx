@@ -123,6 +123,7 @@ function TheMusicPlayer(props) {
         let progressLeft = getElementLeft(progress)
         let percent = (e.pageX - progressLeft) / progress.clientWidth
         let perTime = percent * audio.duration
+        if(audio.currentTime)
         audio.currentTime = perTime
     }
 
@@ -139,6 +140,7 @@ function TheMusicPlayer(props) {
         }
     })
     useEffect(() => {
+        if(songList.length!==0)
         playSong()
         // eslint-disable-next-line
     }, [thisSong, songList])
