@@ -1,25 +1,26 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router';
 import PubSub from 'pubsub-js';
 import axios from 'axios';
 import useLocalStorageState from 'use-local-storage-state'
 import "./MusicLyrics.scss"
+import {Tag} from 'antd'
 
 const Musiclyrics = (props) => {
     const theSong = props.selectedSongFromStore
     const [allLyric, setAllLyric] = useState([])
-    const [activeIndex,setActIndex] = useState(0)
-    const [partLyric, setPartLyric ,{removeItem}] = useLocalStorageState('partLyricStore',[])
+    const [activeIndex, setActIndex] = useState(0)
+    const [partLyric, setPartLyric, {removeItem}] = useLocalStorageState('partLyricStore', [])
     useEffect(() => {
         if (JSON.stringify(theSong) !== '{}') {
             axios.get(`/apc/lyric?id=${theSong.id}`)
                 .then(res => {
                     let lyTimes = [], lyInners = []
-                    if(res.data.lrc === undefined){
+                    if (res.data.lrc === undefined) {
                         setPartLyric([{
-                            time:0,
-                            inner:'暂无歌词,享受音乐'
+                            time: 0,
+                            inner: '暂无歌词,享受音乐'
                         }])
                         return;
                     }
@@ -43,19 +44,19 @@ const Musiclyrics = (props) => {
             if (foundIndex !== -1) {
                 let foundIndexDec = foundIndex - 5 < 0 ? 0 : foundIndex - 5
                 let foundIndexInc = foundIndex + 6 > allLyric.length ? allLyric.length : foundIndex + 6
-                if(foundIndex <= 5){
-                    setActIndex(foundIndex+1)
-                }else if(foundIndex <= 3){
-                    foundIndexInc =  10 + foundIndex
-                }else{
+                if (foundIndex <= 5) {
+                    setActIndex(foundIndex + 1)
+                } else if (foundIndex <= 3) {
+                    foundIndexInc = 10 + foundIndex
+                } else {
                     setActIndex(6)
                 }
                 let part = allLyric.slice(foundIndexDec, foundIndexInc)
                 setPartLyric(part)
             }
         })
-        let sub_1 = PubSub.subscribe("changePlayingSong",(_,data)=>{
-            if(data){
+        let sub_1 = PubSub.subscribe("changePlayingSong", (_, data) => {
+            if (data) {
                 removeItem();
             }
         })
@@ -64,6 +65,7 @@ const Musiclyrics = (props) => {
             PubSub.unsubscribe(sub_1)
         }
     })
+
     function matchLyric(lyTimes, lyInners) {
         let lyObjs = [], lyTimeSum = [];
         lyTimes.forEach(strT => {
@@ -80,19 +82,23 @@ const Musiclyrics = (props) => {
         }
         setAllLyric(lyObjs)
     }
+
     return (
         <div className="lyricsMain">
             <div className="songTitle">
                 <p>{theSong.name}</p>
-                <p>歌手:{theSong.singer}</p>
+                <Tag color="geekblue">歌手：{theSong.singer}</Tag>
             </div>
             <div className="mainLyrics">
                 {
                     partLyric.map((obj, index) => {
                         return (
                             <p
-                            key={index}
-                            style={index===activeIndex-1?{fontWeight:'bolder',color:'black'}:{fontWeight:'normal'}}
+                                key={index}
+                                style={index === activeIndex - 1 ? {
+                                    fontWeight: 'bolder',
+                                    color: 'black'
+                                } : {fontWeight: 'normal'}}
                             >{obj.inner}</p>
                         )
                     })
@@ -106,7 +112,6 @@ const MusicLyricsUI = connect(
     state => ({
         selectedSongFromStore: state.playingSong
     }),
-
 )(Musiclyrics)
 export default withRouter(MusicLyricsUI);
 
