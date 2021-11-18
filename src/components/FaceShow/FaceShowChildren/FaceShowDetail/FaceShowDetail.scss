@@ -1,0 +1,13 @@
+@import "../../../../myStyle";
+@import "../../../common/colors";
+
+.face-show-detail {
+  @include flexCenter();
+  background: $detailBoxBcg;
+  border-radius: 5px;
+  padding: 2em;
+
+  .face-show-detail-content {
+    line-height: 2;
+  }
+}

@@ -11,7 +11,7 @@ const Musiclyrics = (props) => {
     const [allLyric, setAllLyric] = useState([])
     const [activeIndex,setActIndex] = useState(0)
     const [partLyric, setPartLyric ,{removeItem}] = useLocalStorageState('partLyricStore',[])
-    useEffect(() => { 
+    useEffect(() => {
         if (JSON.stringify(theSong) !== '{}') {
             axios.get(`/apc/lyric?id=${theSong.id}`)
                 .then(res => {
@@ -93,7 +93,7 @@ const Musiclyrics = (props) => {
                 {
                     partLyric.map((obj, index) => {
                         return (
-                            <p 
+                            <p
                             key={index}
                             style={index===activeIndex-1?{fontWeight:'bolder',color:'black'}:{fontWeight:'normal'}}
                             >{obj.inner}</p>
@@ -109,7 +109,7 @@ const MusicLyricsUI = connect(
     state => ({
         selectedSongFromStore: state.playingSong
     }),
-    
+
 )(Musiclyrics)
 export default withRouter(MusicLyricsUI);
 
