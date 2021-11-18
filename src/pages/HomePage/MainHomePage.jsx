@@ -13,7 +13,7 @@ function MainHomePage(props) {
                 <NavList></NavList>
             </div>
             <div id="main">
-                <div id="sider-block"></div>
+                {/*<div id="sider-block"></div>*/}
                 <div id="main-block" key={props.location.key}>
                     <Router>
                         <Switch>

@@ -1,29 +1,31 @@
 @import "../../myStyle.scss";
-body,
-html {
-  margin: 0;
-}
+@import "../../components/common/index";
+
 #all {
-  @include flexBoxCol();
-  overflow: hidden;
-  /* max-height: 100vh; */
+  @include flexCenter();
+  flex-direction: column;
+  height: 100%;
+
   #header {
-    height: 45px;
+    @include flexCenter();
+    height: 60px;
     width: 100%;
-    min-width: 80vh;
-    background-color: rgb(231, 229, 229);
+    background: $headerColor;
+    font-size: 16px;
   }
-  #footer {
-    height: 50px;
-    width: 100%;
-    min-height: 45px;
-  }
+
   #main {
-    display: flex;
-    height: calc(100vh - 50px - 45px);
+    @include flexCenter;
+    flex: 1;
     width: 100%;
-    flex-direction: row;
-    overflow: hidden;
+    background: $mainColor;
+
+    #main-block {
+      width: 1000px;
+      padding: 20px;
+    }
+
+    /*
     #sider-block {
       width: 190px;
       min-width: 190px;
@@ -34,10 +36,14 @@ html {
         }
       }
     }
-    #main-block {
-      width: 100%;
-      min-width: 100%;
-      overflow-y: scroll;
-    }
+    */
+  }
+
+  #footer {
+    @include flexCenter();
+    width: 100%;
+    height: 85px;
+    padding: 10px 0;
+    background: $footerColor;
   }
 }

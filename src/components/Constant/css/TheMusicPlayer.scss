@@ -1,74 +1,87 @@
 @import "../../../myStyle.scss";
-.musicplayermain {
+@import "../../common/colors";
+
+.player-main {
   @include flexBoxCol();
-  height: 100%;
   justify-content: center;
-  .progress{
+  height: 100%;
+  width: 1000px;
+
+  .progress {
     @include flexBoxRow();
     height: 5px;
-    border: {
-      style: solid;
-      width:1px;
-      color:gray;
-    }
+    width: 100%;
+    margin: 0 auto 8px;
+    border-radius: 5px;
+    background: $processBcg;
   }
+
   .progressbar {
     height: 5px;
-    background-color: rgb(255, 0, 0);
+    background-color: $processBarColor;
+    border-radius: 5px;
   }
+
   .player {
+    $aside-width: 300px;
     height: 50px;
     @include flexBoxRow();
+    justify-content: space-between;
     align-items: center;
-    .sider-music {
-      width: 30%;
-      min-width: 120px;
+
+    .aside-music {
+      width: $aside-width;
       @include flexBoxRow();
       align-items: center;
+
       .music-avatar {
-        width: 20%;
         text-align: center;
-        min-width: 40px;
+
         img {
-          width: 35px;
-          height: 35px;
+          width: 36px;
+          height: 36px;
         }
       }
+
       .music-detail {
         width: 80%;
         @include flexBoxCol();
         justify-content: space-around;
-        .musicName {
+
+        .music-name {
           height: 50%;
+          font-weight: bold;
         }
-        .progressTime {
+
+        .progress-time {
           height: 50%;
+          color: $progressTimeColor;
         }
+
         p {
-          margin: 0 0 0 5px;
-          padding: 0;
-          &:nth-child(1) {
-            font-weight: bold;
-          }
-          &:nth-child(2) {
-            color: gray;
-          }
+          margin: 0 0 0 10px;
         }
       }
     }
+
     .music-main {
-      width: 40%;
-      min-width: 30vw;
-      @include flexCenter();
-      div {
-        margin-left: 25px;
+      width: 160px;
+      @include flexBoxRow();
+      justify-content: space-between;
+      align-items: center;
+
+      & > span {
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
-    .sider-setting {
-      width: 30%;
-      min-width: 20vh;
+
+    .aside-setting {
+      display: flex;
+      justify-content: flex-end;
+      width: $aside-width;
       text-align: center;
-      @include flexCenter();
     }
   }
 }
