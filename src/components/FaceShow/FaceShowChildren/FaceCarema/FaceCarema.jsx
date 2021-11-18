@@ -73,7 +73,7 @@ function FaceCarema(props){
     //     }
     // }
     function getAIApi(imgURL) {
-       
+
         axios({
             method: 'POST',
             url: '/api/detect?access_token=24.ec99833ca00f0d306e38a1087097b69f.2592000.1639665443.282335-25166469',
@@ -102,12 +102,15 @@ function FaceCarema(props){
         })
     }
     return (
-        <div className="caremaMain">
-            <video id="video" crossOrigin="anonymous" width="400" autoPlay ref={videoRef}>{caremaOff}</video>
-            <canvas id="canvas" ref={canvasRef}></canvas>
-            <span className="takePhoto" onClick={uploadImage}>
-                <CameraOutlined style={{ fontSize: '50px' }} />
+        <div className="camera-main">
+            <div className="camera-box">
+                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}>{caremaOff}</video>
+                <span className="takePhoto" onClick={uploadImage}>
+                <CameraOutlined className="camera-btn" />
             </span>
+            </div>
+
+            <canvas id="canvas" ref={canvasRef}></canvas>
             {/* <input type="file" ref={uploadPic} onChange={picToBase64} /> */}
         </div>
     )
