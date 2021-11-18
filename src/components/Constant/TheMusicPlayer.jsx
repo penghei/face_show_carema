@@ -61,9 +61,8 @@ function TheMusicPlayer(props) {
         if (songList.length === 0) return
         if (songNum.current !== 0) {
             songNum.current -= 1
-            if (songNum.current === 0) songNum.current = 0;
         } else {
-            songNum.current -= 1
+            songNum.current = 0
         }
         setIfPlay(true)
         playSong()
@@ -92,7 +91,6 @@ function TheMusicPlayer(props) {
             setSongDuration(timeToMinute(audio.duration))
             setPlayedProgress(playedPercent)
             if (audio.ended) {
-                console.log('next')
                 nextSong()
             }
         })

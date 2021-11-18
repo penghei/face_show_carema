@@ -7,12 +7,9 @@ import './css/TheSider.scss'
 const { SubMenu } = Menu;
 
 function TheSider(props) {
-    function handleClick(e) {
-        console.log(e.key)
-    }
     return (
         <div className="thesidermain">
-            <Menu mode="inline" onClick={handleClick}>
+            <Menu mode="inline">
                 <Menu.Item key="login">
                 <Loginmodal></Loginmodal>
                 </Menu.Item>

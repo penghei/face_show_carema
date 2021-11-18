@@ -19,7 +19,7 @@ function FaceCamera(props){
         disgust: "402924168",
         surprise: "996728953"
     };
-    // const uploadPic = useRef(null)
+    const uploadPic = useRef(null)
     const [cameraOff, setCameraOff] = useState('')
     if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
         getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
@@ -35,7 +35,6 @@ function FaceCamera(props){
         }
     }
     function success(stream) {
-        console.log("访问成功");
         StreamTrack.current = typeof stream.stop === 'function' ? stream : stream.getVideoTracks()[0];
         try {
             videoRef.current.srcObject = stream;
@@ -46,7 +45,6 @@ function FaceCamera(props){
         videoRef.current.play().catch(err=>{})
     }
     function error(error) {
-        console.log(`访问用户媒体设备失败${error.name}, ${error.message}`);
         message.error('访问摄像头失败，请检查是否授权')
     }
 
@@ -57,21 +55,21 @@ function FaceCamera(props){
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height); //绘制当前画面，形成图片
         videoRef.current.pause(); //暂停摄像头视频流
         StreamTrack.current && StreamTrack.current.stop();
-        let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100);
-        let newUrl = imgURL.split(",")[1]
-        getAIApi(newUrl)
+        // let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100);
+        // let newUrl = imgURL.split(",")[1]
+        // getAIApi(newUrl)
     }
-    // function picToBase64() {
-    //     let file = uploadPic.current.files[0]
-    //     var oFReader = new FileReader();
-    //     oFReader.readAsDataURL(file)
-    //     oFReader.onload = (e) => {
-    //         let res = e.target.result
-    //         console.log(res)
-    //         let newUrl = res.split(",")[1]
-    //         getAIApi(newUrl)
-    //     }
-    // }
+    function picToBase64() {
+        let file = uploadPic.current.files[0]
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(file)
+        oFReader.onload = (e) => {
+            let res = e.target.result
+            console.log(res)
+            let newUrl = res.split(",")[1]
+            getAIApi(newUrl)
+        }
+    }
     function getAIApi(imgURL) {
 
         axios({
@@ -88,7 +86,6 @@ function FaceCamera(props){
         }).then(res => {
             let emo = res.data.result.face_list[0]?.emotion.type
             if (emo) {
-                console.log(emo)
                 for (let key in playingListSelect) {
                     if (key === emo) {
                         PubSub.publish("selectedListId", playingListSelect[key])
@@ -111,7 +108,7 @@ function FaceCamera(props){
             </div>
 
             <canvas id="canvas" ref={canvasRef}></canvas>
-            {/* <input type="file" ref={uploadPic} onChange={picToBase64} /> */}
+            <input type="file" ref={uploadPic} onChange={picToBase64} />
         </div>
     )
 }
