@@ -39,11 +39,18 @@
       align-items: center;
 
       .music-avatar {
+        border-radius: 5px;
         text-align: center;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
 
         img {
           width: 36px;
           height: 36px;
+          border-radius: inherit;
         }
       }
 
