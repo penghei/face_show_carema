@@ -1,14 +1,14 @@
 import React from 'react'
 import "./FaceShow.scss"
 import { withRouter } from 'react-router'
-import FaceCarema from './FaceShowChildren/FaceCarema/FaceCarema'
+import FaceCamera from './FaceShowChildren/FaceCamera/FaceCamera'
 import FaceShowDetail from './FaceShowChildren/FaceShowDetail/FaceShowDetail'
 
 function FaceShow(props) {
     return (
         <div className="faceShowMain">
             <div className="cameraBlock">
-                <FaceCarema></FaceCarema>
+                <FaceCamera></FaceCamera>
             </div>
             <div className="exceptionBlock">
                 <FaceShowDetail></FaceShowDetail>

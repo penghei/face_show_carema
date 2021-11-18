@@ -6,7 +6,7 @@ import './FaceCamera.scss'
 import PubSub from 'pubsub-js';
 import axios from 'axios';
 
-function FaceCarema(props){
+function FaceCamera(props){
     const videoRef = useRef(null)
     const canvasRef = useRef(null)
     const StreamTrack = useRef(null)
@@ -20,11 +20,11 @@ function FaceCarema(props){
         surprise: "996728953"
     };
     // const uploadPic = useRef(null)
-    const [caremaOff, setCaremaOff] = useState('')
+    const [cameraOff, setCameraOff] = useState('')
     if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
         getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
     } else {
-        setCaremaOff("您的设备不支持访问摄像头")
+        setCameraOff("您的设备不支持访问摄像头")
     }
 
     function getMedia(constraints, success, error) {
@@ -104,7 +104,7 @@ function FaceCarema(props){
     return (
         <div className="camera-main">
             <div className="camera-box">
-                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}>{caremaOff}</video>
+                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}>{cameraOff}</video>
                 <span className="takePhoto" onClick={uploadImage}>
                 <CameraOutlined className="camera-btn" />
             </span>
@@ -123,4 +123,4 @@ export default connect(
     dispatch => ({
         setEmotions: (value) => dispatch({ type: 'setEmotions', data: value }),
     })
-)(FaceCarema)
+)(FaceCamera)
