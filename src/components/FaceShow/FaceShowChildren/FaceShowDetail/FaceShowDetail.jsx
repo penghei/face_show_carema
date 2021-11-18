@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux'
- import "./FaceShowDetail.scss"
-import {Tag} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux'
+import "./FaceShowDetail.scss"
+import { Tag } from 'antd';
 
 const FaceShowDetail = (props) => {
     // eslint-disable-next-line
@@ -9,11 +9,27 @@ const FaceShowDetail = (props) => {
     const playingSongFromStore = props.playingSongFromStore
     const emotionFromStore = props.emotionFromStore
     const [userMsgObj, setUserMsgObj] = useState({})
+    const emoTranslates = {
+        angry: "生气",
+        happy: "快乐",
+        sad: "沮丧",
+        neutral: "平静",
+        fear: "害怕",
+        disgust: "厌恶",
+        surprise: "惊喜"
+    }
+    function translateEmo(emo){
+        for(let key in emoTranslates){
+            if(key === emo){
+                return emoTranslates[key]
+            }
+        }
+    }
     useEffect(() => {
         setUserMsgObj({
             musicName: playingSongFromStore?.name,
             playList: null,
-            emotion: emotionFromStore
+            emotion: translateEmo(emotionFromStore)
         })
     }, [playingSongFromStore, songListFromStore, emotionFromStore])
     return (

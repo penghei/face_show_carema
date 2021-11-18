@@ -92,7 +92,7 @@ function FaceCamera(props){
                 for (let key in playingListSelect) {
                     if (key === emo) {
                         PubSub.publish("selectedListId", playingListSelect[key])
-                        props.setEmotions(key)
+                        props.setEmotions(emo)
                     }
                 }
             }
