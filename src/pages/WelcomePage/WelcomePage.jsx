@@ -1,8 +1,9 @@
 import "./WelcomePage.scss";
 import {useState} from "react";
 import FeatureCard from "../../components/FeatureCard/FeatureCard";
+import { withRouter } from "react-router";
 
-export default function WelcomePage(props) {
+function WelcomePage(props) {
     const [cardContainerVisible, setCardContainerVisible] = useState(false)
     const featureList = [
         {
@@ -22,6 +23,7 @@ export default function WelcomePage(props) {
             card.style.height = cardContainerVisible ? 0 : 10 + "em"
         }
         setCardContainerVisible(!cardContainerVisible)
+        props.history.push('/main/faceshow')
     }
 
     return (
@@ -40,3 +42,4 @@ export default function WelcomePage(props) {
         </div>
     )
 }
+export default withRouter(WelcomePage)

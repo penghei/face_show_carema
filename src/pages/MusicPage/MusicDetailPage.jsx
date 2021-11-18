@@ -9,7 +9,7 @@ function MusicDetailPage(props) {
     const theSong = props.selectedSongFromStore
 
     function backToMain() {
-        props.history.push('/main')
+        props.history.push('/main/faceshow')
     }
 
     return (

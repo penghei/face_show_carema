@@ -11,7 +11,6 @@ function FaceCamera(props) {
     const canvasRef = useRef(null)
     const StreamTrack = useRef(null)
     const [ifCarema, setIfCarema] = useState(true)
-    // eslint-disable-next-line
     const [refresh,getRefresh] = useState(true)
     const playingListSelect = {
         angry: "2670463218",
@@ -31,7 +30,7 @@ function FaceCamera(props) {
             message.error("您的设备不支持访问摄像头,可以直接上传图片哦")
             setIfCarema(false)
         }
-    }, [])
+    }, [ifCarema])
     useEffect(()=>{
         console.log("updated")
     })
