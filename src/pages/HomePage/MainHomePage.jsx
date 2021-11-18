@@ -4,6 +4,7 @@ import TheMusicPlayer from '../../components/Constant/TheMusicPlayer'
 import FaceShowPage from '../FaceShowPage/FaceShowPage'
 import MusicDetailPage from '../MusicPage/MusicDetailPage'
 import NavList from '../../components/Constant/TheNavList'
+// import WelcomePage from '../WelcomePage/WelcomePage'
 import './MainHomePage.scss'
 
 function MainHomePage(props) {
@@ -13,13 +14,12 @@ function MainHomePage(props) {
                 <NavList></NavList>
             </div>
             <div id="main">
-                {/*<div id="sider-block"></div>*/}
                 <div id="main-block" key={props.location.key}>
                     <Router>
                         <Switch>
-                            <Route path="/main" component={FaceShowPage}></Route>
-                            <Route path="/music" component={MusicDetailPage}></Route>
-                            <Redirect to="/main"></Redirect>
+                            <Route path="/main/faceshow" component={FaceShowPage}></Route>
+                            <Route path="/main/music" component={MusicDetailPage}></Route>
+                            <Redirect to="/main/faceshow"></Redirect>
                         </Switch>
                     </Router>
                 </div>

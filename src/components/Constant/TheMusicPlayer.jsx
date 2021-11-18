@@ -61,9 +61,8 @@ function TheMusicPlayer(props) {
         if (songList.length === 0) return
         if (songNum.current !== 0) {
             songNum.current -= 1
-            if (songNum.current === 0) songNum.current = 0;
         } else {
-            songNum.current -= 1
+            songNum.current = 0
         }
         setIfPlay(true)
         playSong()
@@ -92,7 +91,6 @@ function TheMusicPlayer(props) {
             setSongDuration(timeToMinute(audio.duration))
             setPlayedProgress(playedPercent)
             if (audio.ended) {
-                console.log('next')
                 nextSong()
             }
         })
@@ -101,7 +99,7 @@ function TheMusicPlayer(props) {
     function openMusicDetail() {
         if (JSON.stringify(thisSong) === '{}') return;
         props.history.push({
-            pathname: '/music',
+            pathname: '/main/music',
         })
     }
 
@@ -123,6 +121,7 @@ function TheMusicPlayer(props) {
         let progressLeft = getElementLeft(progress)
         let percent = (e.pageX - progressLeft) / progress.clientWidth
         let perTime = percent * audio.duration
+        if(audio.currentTime)
         audio.currentTime = perTime
     }
 
@@ -139,6 +138,7 @@ function TheMusicPlayer(props) {
         }
     })
     useEffect(() => {
+        if(songList.length!==0)
         playSong()
         // eslint-disable-next-line
     }, [thisSong, songList])

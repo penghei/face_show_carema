@@ -31,6 +31,37 @@
     }
   }
 
+  .upload-btn {
+    $len: 300px;
+    position: relative;
+    width: $len;
+    height: $len;
+    background: $uploadBtnBcg;
+    border: 1px dashed #aaa;
+    border-radius: 5px;
+    margin: auto;
+    font-size: 40px;
+    text-align: center;
+    line-height: $len;
+    transition: border-color 0.3s;
+
+    &::after {
+      content: "没摄像头不要紧呀，来上传一张图片吧~";
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      width: 100%;
+      font-size: 14px;
+      line-height: 1;
+      transform: translateX(-50%);
+    }
+
+    &:hover {
+      border-color: #333;
+      cursor: pointer;
+    }
+  }
+
   #canvas {
     display: none;
   }

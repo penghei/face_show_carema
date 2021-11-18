@@ -1,4 +1,5 @@
 @import '../../myStyle.scss';
+<<<<<<< HEAD
 .lyricsMain{
     @include flexBoxCol();
     .songTitle{
@@ -34,5 +35,39 @@
             margin-bottom: 5px;
         }
         
+=======
+@import "../common/colors";
+
+.lyricsMain {
+  @include flexBoxCol();
+
+  .songTitle {
+    width: 360px;
+    margin-bottom: 25px;
+
+    p {
+      margin: 0;
+
+      &:nth-of-type(1) {
+        padding: 0;
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 5px;
+      }
     }
+
+  }
+
+  .mainLyrics {
+    p {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 5px;
+>>>>>>> d32b6b28ce29ef78f2a641a962af911a0d9d3ecd
+    }
+  }
+
+  .lyric-loading {
+    font-size: 16px;
+  }
 }

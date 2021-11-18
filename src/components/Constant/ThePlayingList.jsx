@@ -34,7 +34,6 @@ function ThePlayingList(props) {
     }, [screenWidth]);
     useEffect(() => {
         Pubsub.subscribe('selectedListId', (_, data) => {
-            console.log(data)
             if (data) {
                 axios.get(`/apc/playlist/detail?id=${Number(data)}`)
                     .then(res => {
@@ -64,6 +63,7 @@ function ThePlayingList(props) {
         })
         axios.get(`/apc/song/url?id=${allSongsId.toString()}`)
             .then(res => {
+                let newSongs = []
                 res.data.data.forEach(songUrlObj => {
                     let foundSong = allSongs.find(songDetailObj => {//在歌曲详情中查找歌曲名等信息
                         return songDetailObj.id === songUrlObj.id
@@ -76,11 +76,13 @@ function ThePlayingList(props) {
                             singer: foundSong.ar[0].name,
                             cover: foundSong.al.picUrl,
                         }
-                        props.addToPlayingList(displaySongObj)
+                        // props.addToPlayingList(displaySongObj)
+                        newSongs.push(displaySongObj)
                     }
-
                 })
-
+                if (newSongs.length !== 0) {
+                    props.setNewPlayingList(newSongs)
+                }
             })
     }
     return (
@@ -119,7 +121,8 @@ const ThePlayingListUI = connect(
     dispatch => ({
         setPlayingSong: (value) => dispatch({ type: 'setPlayingSong', data: value }),
         emptyPlayingList: () => dispatch({ type: 'emptyPlayingList', data: [] }),
-        addToPlayingList: (value) => dispatch({ type: 'addToPlayingList', data: value })
+        addToPlayingList: (value) => dispatch({ type: 'addToPlayingList', data: value }),
+        setNewPlayingList: (value) => dispatch({ type: 'setNewPlayingList', data: value })
     })
 )(ThePlayingList)
 export default withRouter(ThePlayingListUI)

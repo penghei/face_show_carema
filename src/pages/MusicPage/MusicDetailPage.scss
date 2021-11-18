@@ -1,55 +1,47 @@
+@import "../../components/common/colors";
 @import "../../myStyle.scss";
 
-.musicmain {
+.music-detail-main {
   @include flexBoxRow();
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(#CDCDCD,#FFFFFF);
-  height: 70vh;
-  border-radius: 20px;
-  
+  position: relative;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 760px;
+  height: 420px;
+  background: $MusicDetailBcg;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
 
-  .sider {
-    @include flexBoxCol();
-    width: 25%;
-    align-items: center;
+  .song-cover {
+    width: 250px;
   }
-  .main {
-    width: 50%;
-    @include flexBoxCol();
-    .songdetail {
-      height: 400px;
 
-      @media screen and (min-width: 725px) {
-        @include flexBoxRow();
-        justify-content: center;
-      }
-      .songCover {
-        width: 270px;
-        margin-right: 20px;
-        @include flexCenter();
-        img {
-          height: 250px;
-          width: 250px;
-          border-radius: 10px;
-        }
-      }
-      .songLyrics {
+  .songLyrics {
+    width: 400px;
+    height: 100%;
+    overflow: hidden;
+  }
 
-        min-width: 400px;
-        max-width: 500px;
-        overflow: hidden;
-      }
-    }
-    .commitblock {
-      @include flexBoxRow();
-      .commit {
-        width: 70%;
-      }
-      .recommand {
-        width: 30%;
-        height: 50vh;
-      }
+  .replace {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    line-height: 380px;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    padding: 1em;
+    font-weight: bold;
+    line-height: 1;
+    transition: all 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      transform: rotate(-360deg);
     }
   }
 }
