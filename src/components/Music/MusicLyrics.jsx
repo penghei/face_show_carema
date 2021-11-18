@@ -81,24 +81,28 @@ const Musiclyrics = (props) => {
 
     return (
         <div className="lyricsMain">
+            <div className="songTitle">
+                <p>{theSong.name}</p>
+                <Tag color="geekblue">歌手：{theSong.singer}</Tag>
+            </div>
             {
                 partLyric.length
-                    ? (<><div className="songTitle">
-                        <p>{theSong.name}</p>
-                        <Tag color="geekblue">歌手：{theSong.singer}</Tag>
-                    </div><div className="mainLyrics">
-                            {
-                                (partLyric.map((obj, index) => {
-                                    return (
-                                        <p
-                                            key={index}
-                                            style={index === activeIndex - 1 ? { fontWeight: 'bolder', color: 'black' } : { fontWeight: 'normal' }}
-                                        >{obj.inner}</p>
-                                    );
-                                }))
-                            }
-                        </div></>)
-                    : (<h2 className="replace">暂时没有正在播放的音乐哦</h2>)
+                    ? <div className="mainLyrics">
+                        {
+                            (partLyric.map((obj, index) => {
+                                return (
+                                    <p
+                                        key={index}
+                                        style={index === activeIndex - 1 ? {
+                                            fontWeight: 'bolder',
+                                            color: 'black'
+                                        } : {fontWeight: 'normal'}}
+                                    >{obj.inner}</p>
+                                );
+                            }))
+                        }
+                    </div>
+                    : <h2 className="lyric-loading">歌词正在加载哦~或许根本没有歌词也说不定！</h2>
             }
 
         </div>
