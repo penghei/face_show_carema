@@ -1,7 +1,7 @@
 import "./WelcomePage.scss";
 import {useState} from "react";
 import FeatureCard from "../../components/FeatureCard/FeatureCard";
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
 
 function WelcomePage(props) {
     const [cardContainerVisible, setCardContainerVisible] = useState(false)
@@ -10,7 +10,7 @@ function WelcomePage(props) {
             name: "音乐空间",
             description: "你现在的心情，适合怎样的音乐呢？",
             icon: "icon-customerservice-fill",
-            href: ""
+            featureName: "faceshow"
         }
     ]
     const cardItems = featureList.map((cardItem) => (
@@ -23,7 +23,10 @@ function WelcomePage(props) {
             card.style.height = cardContainerVisible ? 0 : 10 + "em"
         }
         setCardContainerVisible(!cardContainerVisible)
-        props.history.push('/main/faceshow')
+    }
+
+    function handleCardEnter() {
+        props.history.push(`/main/${"faceshow"}`)
     }
 
     return (
@@ -35,11 +38,12 @@ function WelcomePage(props) {
             <button className="welcome-btn iconfont icon-face"
                     onClick={handleCardInOut}></button>
             {
-                <div id="card-container" className="card-container">
+                <div id="card-container" className="card-container" onClick={handleCardEnter}>
                     {cardItems}
                 </div>
             }
         </div>
     )
 }
+
 export default withRouter(WelcomePage)

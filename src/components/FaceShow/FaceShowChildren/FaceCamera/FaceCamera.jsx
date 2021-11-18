@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { CameraOutlined } from '@ant-design/icons';
-import { message, Button } from 'antd';
-import { connect } from 'react-redux'
+import React, {useEffect, useRef, useState} from 'react'
+import {CameraOutlined, PlusOutlined} from '@ant-design/icons';
+import {message} from 'antd';
+import {connect} from 'react-redux'
 import './FaceCamera.scss'
 import PubSub from 'pubsub-js';
 import axios from 'axios';
@@ -11,7 +11,7 @@ function FaceCamera(props) {
     const canvasRef = useRef(null)
     const StreamTrack = useRef(null)
     const [ifCarema, setIfCarema] = useState(true)
-    const [refresh,getRefresh] = useState(true)
+    const [refresh, getRefresh] = useState(true)
     const playingListSelect = {
         angry: "2670463218",
         happy: "2456961456",
@@ -25,15 +25,16 @@ function FaceCamera(props) {
 
     useEffect(() => {
         if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
-            getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
+            getMedia({video: {facingMode: "user",}}, success, error);//facingMode: "user" 为开启前置摄像头
         } else {
             message.error("您的设备不支持访问摄像头,可以直接上传图片哦")
             setIfCarema(false)
         }
     }, [ifCarema])
-    useEffect(()=>{
+    useEffect(() => {
         console.log("updated")
     })
+
     function getMedia(constraints, success, error) {
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
@@ -41,6 +42,7 @@ function FaceCamera(props) {
             navigator.webkitGetUserMedia(constraints).then(success).catch(error);
         }
     }
+
     function success(stream) {
         StreamTrack.current = typeof stream.stop === 'function' ? stream : stream.getVideoTracks()[0];
         try {
@@ -49,14 +51,18 @@ function FaceCamera(props) {
             var CompatibleURL = window.URL || window.webkitURL;
             videoRef.current.src = CompatibleURL.createObjectURL(stream);
         }
-        videoRef.current.play().catch(err => { })
+        videoRef.current.play().catch(err => {
+        })
     }
+
     function error(error) {
         message.error('访问摄像头失败，请检查是否授权')
     }
+
     function handleUpload() {
         uploadPic.current.click()
     }
+
     function uploadImage() {
         let context = canvasRef.current.getContext('2d');
         canvasRef.current.width = videoRef.current.offsetWidth;
@@ -68,6 +74,7 @@ function FaceCamera(props) {
         let newUrl = imgURL.split(",")[1]
         getAIApi(newUrl)
     }
+
     function picToBase64() {
         let file = uploadPic.current.files[0]
         var oFReader = new FileReader();
@@ -79,6 +86,7 @@ function FaceCamera(props) {
             getAIApi(newUrl)
         }
     }
+
     function getAIApi(imgURL) {
         axios({
             method: 'POST',
@@ -107,25 +115,26 @@ function FaceCamera(props) {
             getRefresh(!refresh)
         })
     }
+
     return (
         <div className="camera-main">
             {
                 ifCarema
                     ? (
-                    <>
-                        <div className="camera-box">
-                            <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}></video>
-                            <span className="takePhoto" onClick={uploadImage}>
-                                <CameraOutlined className="camera-btn" />
+                        <>
+                            <div className="camera-box">
+                                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}></video>
+                                <span className="takePhoto" onClick={uploadImage}>
+                                <CameraOutlined className="camera-btn"/>
                             </span>
-                        </div>
-                        <canvas id="canvas" ref={canvasRef}></canvas>
-                    </>)
-                    :(
-                    <>
-                        <input type="file" ref={uploadPic} onChange={picToBase64} style={{ display: 'none' }} />
-                        <Button onClick={handleUpload}>上传图片</Button>
-                    </>)
+                            </div>
+                            <canvas id="canvas" ref={canvasRef}></canvas>
+                        </>)
+                    : (
+                        <>
+                            <input type="file" ref={uploadPic} onChange={picToBase64} style={{display: 'none'}}/>
+                            <div className="upload-btn" onClick={handleUpload}><PlusOutlined/></div>
+                        </>)
             }
         </div>
     )
@@ -136,6 +145,6 @@ export default connect(
         songListFromStore: state.playingList,
     }),
     dispatch => ({
-        setEmotions: (value) => dispatch({ type: 'setEmotions', data: value }),
+        setEmotions: (value) => dispatch({type: 'setEmotions', data: value}),
     })
 )(FaceCamera)

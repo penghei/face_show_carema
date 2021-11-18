@@ -8,7 +8,7 @@ function App(props) {
         <div className="App">
             <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2940949_rb3kyx17rx.css"/>
             <ErrorEdge>
-            <div id="main-block" key={props.location.key}>
+            <div id="main-router" key={props.location.key}>
                     <Router>
                         <Switch>
                             <Route path="/main" component={MainHomePage}></Route>
