@@ -21,7 +21,7 @@ function FaceCamera(props){
     };
     // const uploadPic = useRef(null)
     const [cameraOff, setCameraOff] = useState('')
-    if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+    if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
         getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
     } else {
         setCameraOff("您的设备不支持访问摄像头")
@@ -92,7 +92,7 @@ function FaceCamera(props){
                 for (let key in playingListSelect) {
                     if (key === emo) {
                         PubSub.publish("selectedListId", playingListSelect[key])
-                        PubSub.publish("emo",key)
+                        props.setEmotions(key)
                     }
                 }
             }

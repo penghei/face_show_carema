@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router';
 import PubSub from 'pubsub-js';
 import axios from 'axios';
-import useLocalStorageState from 'use-local-storage-state'
 import "./MusicLyrics.scss"
 import {Tag} from 'antd'
 
@@ -11,7 +10,7 @@ const Musiclyrics = (props) => {
     const theSong = props.selectedSongFromStore
     const [allLyric, setAllLyric] = useState([])
     const [activeIndex, setActIndex] = useState(0)
-    const [partLyric, setPartLyric, {removeItem}] = useLocalStorageState('partLyricStore', [])
+    const [partLyric, setPartLyric] = useState([])
     useEffect(() => {
         if (JSON.stringify(theSong) !== '{}') {
             axios.get(`/apc/lyric?id=${theSong.id}`)
@@ -34,6 +33,9 @@ const Musiclyrics = (props) => {
                     })
                     matchLyric(lyTimes, lyInners)
                 })
+                .catch(err => {
+                    console.log(err)
+                })
         }
         // eslint-disable-next-line
     }, [theSong])
@@ -55,14 +57,8 @@ const Musiclyrics = (props) => {
                 setPartLyric(part)
             }
         })
-        let sub_1 = PubSub.subscribe("changePlayingSong", (_, data) => {
-            if (data) {
-                removeItem();
-            }
-        })
         return () => {
             PubSub.unsubscribe(sub)
-            PubSub.unsubscribe(sub_1)
         }
     })
 
@@ -85,25 +81,26 @@ const Musiclyrics = (props) => {
 
     return (
         <div className="lyricsMain">
-            <div className="songTitle">
-                <p>{theSong.name}</p>
-                <Tag color="geekblue">歌手：{theSong.singer}</Tag>
-            </div>
-            <div className="mainLyrics">
-                {
-                    partLyric.map((obj, index) => {
-                        return (
-                            <p
-                                key={index}
-                                style={index === activeIndex - 1 ? {
-                                    fontWeight: 'bolder',
-                                    color: 'black'
-                                } : {fontWeight: 'normal'}}
-                            >{obj.inner}</p>
-                        )
-                    })
-                }
-            </div>
+            {
+                partLyric.length
+                    ? (<><div className="songTitle">
+                        <p>{theSong.name}</p>
+                        <Tag color="geekblue">歌手：{theSong.singer}</Tag>
+                    </div><div className="mainLyrics">
+                            {
+                                (partLyric.map((obj, index) => {
+                                    return (
+                                        <p
+                                            key={index}
+                                            style={index === activeIndex - 1 ? { fontWeight: 'bolder', color: 'black' } : { fontWeight: 'normal' }}
+                                        >{obj.inner}</p>
+                                    );
+                                }))
+                            }
+                        </div></>)
+                    : (<h2 className="replace">暂时没有正在播放的音乐哦</h2>)
+            }
+
         </div>
     );
 }
