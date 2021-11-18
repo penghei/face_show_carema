@@ -1,15 +1,18 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CameraOutlined } from '@ant-design/icons';
-import { message } from 'antd';
+import { message, Button } from 'antd';
 import { connect } from 'react-redux'
 import './FaceCamera.scss'
 import PubSub from 'pubsub-js';
 import axios from 'axios';
 
-function FaceCamera(props){
+function FaceCamera(props) {
     const videoRef = useRef(null)
     const canvasRef = useRef(null)
     const StreamTrack = useRef(null)
+    const [ifCarema, setIfCarema] = useState(true)
+    // eslint-disable-next-line
+    const [refresh,getRefresh] = useState(true)
     const playingListSelect = {
         angry: "2670463218",
         happy: "2456961456",
@@ -20,12 +23,18 @@ function FaceCamera(props){
         surprise: "996728953"
     };
     const uploadPic = useRef(null)
-    if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
-        getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
-    } else {
-        message.error("您的设备不支持访问摄像头")
-    }
 
+    useEffect(() => {
+        if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
+            getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
+        } else {
+            message.error("您的设备不支持访问摄像头,可以直接上传图片哦")
+            setIfCarema(false)
+        }
+    }, [])
+    useEffect(()=>{
+        console.log("updated")
+    })
     function getMedia(constraints, success, error) {
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
@@ -41,12 +50,14 @@ function FaceCamera(props){
             var CompatibleURL = window.URL || window.webkitURL;
             videoRef.current.src = CompatibleURL.createObjectURL(stream);
         }
-        videoRef.current.play().catch(err=>{})
+        videoRef.current.play().catch(err => { })
     }
     function error(error) {
         message.error('访问摄像头失败，请检查是否授权')
     }
-
+    function handleUpload() {
+        uploadPic.current.click()
+    }
     function uploadImage() {
         let context = canvasRef.current.getContext('2d');
         canvasRef.current.width = videoRef.current.offsetWidth;
@@ -54,9 +65,9 @@ function FaceCamera(props){
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height); //绘制当前画面，形成图片
         videoRef.current.pause(); //暂停摄像头视频流
         StreamTrack.current && StreamTrack.current.stop();
-        // let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100);
-        // let newUrl = imgURL.split(",")[1]
-        // getAIApi(newUrl)
+        let imgURL = canvasRef.current.toDataURL('image/jpeg', 60 / 100);
+        let newUrl = imgURL.split(",")[1]
+        getAIApi(newUrl)
     }
     function picToBase64() {
         let file = uploadPic.current.files[0]
@@ -70,7 +81,6 @@ function FaceCamera(props){
         }
     }
     function getAIApi(imgURL) {
-
         axios({
             method: 'POST',
             url: '/api/detect?access_token=24.ec99833ca00f0d306e38a1087097b69f.2592000.1639665443.282335-25166469',
@@ -94,20 +104,30 @@ function FaceCamera(props){
             }
         }).catch(err => {
             console.log(err)
-            message.error('未识别到人脸或图片拍摄错误')
+            message.error('未识别到人脸或图片拍摄错误,尝试一下重拍')
+            getRefresh(!refresh)
         })
     }
     return (
         <div className="camera-main">
-            <div className="camera-box">
-                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}></video>
-                <span className="takePhoto" onClick={uploadImage}>
-                <CameraOutlined className="camera-btn" />
-            </span>
-            </div>
-
-            <canvas id="canvas" ref={canvasRef}></canvas>
-            <input type="file" ref={uploadPic} onChange={picToBase64} />
+            {
+                ifCarema
+                    ? (
+                    <>
+                        <div className="camera-box">
+                            <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}></video>
+                            <span className="takePhoto" onClick={uploadImage}>
+                                <CameraOutlined className="camera-btn" />
+                            </span>
+                        </div>
+                        <canvas id="canvas" ref={canvasRef}></canvas>
+                    </>)
+                    :(
+                    <>
+                        <input type="file" ref={uploadPic} onChange={picToBase64} style={{ display: 'none' }} />
+                        <Button onClick={handleUpload}>上传图片</Button>
+                    </>)
+            }
         </div>
     )
 }
