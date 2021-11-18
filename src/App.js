@@ -8,6 +8,7 @@ function App() {
             <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_2940949_rb3kyx17rx.css"/>
             <ErrorEdge>
                 <MainHomePage></MainHomePage>
+                {/* <MusicDetailPage></MusicDetailPage> */}
                 {/*<WelcomePage></WelcomePage>*/}
             </ErrorEdge>
         </div>
