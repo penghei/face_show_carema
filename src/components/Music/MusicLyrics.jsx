@@ -13,7 +13,7 @@ const Musiclyrics = (props) => {
     const [partLyric, setPartLyric ,{removeItem}] = useLocalStorageState('partLyricStore',[])
     useEffect(() => { 
         if (JSON.stringify(theSong) !== '{}') {
-            axios.get(`/lyric?id=${theSong.id}`)
+            axios.get(`/apc/lyric?id=${theSong.id}`)
                 .then(res => {
                     let lyTimes = [], lyInners = []
                     if(res.data.lrc === undefined){
@@ -32,6 +32,9 @@ const Musiclyrics = (props) => {
                         lyInners.push(lyInner)
                     })
                     matchLyric(lyTimes, lyInners)
+                })
+                .catch(err=>{
+                    console.log(err)
                 })
         }
         // eslint-disable-next-line

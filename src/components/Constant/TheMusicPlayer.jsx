@@ -93,7 +93,7 @@ function TheMusicPlayer(props) {
     function openMusicDetail() {
         if (JSON.stringify(thisSong) === '{}') return;
         props.history.push({
-            pathname: '/main/music',
+            pathname: '/music',
         })
     }
     function changeProgressBar(e) {
