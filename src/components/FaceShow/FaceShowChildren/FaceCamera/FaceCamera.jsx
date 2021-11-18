@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { CameraOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import { connect } from 'react-redux'
@@ -20,11 +20,10 @@ function FaceCamera(props){
         surprise: "996728953"
     };
     const uploadPic = useRef(null)
-    const [cameraOff, setCameraOff] = useState('')
     if (navigator.mediaDevices?.getUserMedia || navigator?.getUserMedia || navigator?.webkitGetUserMedia || navigator?.mozGetUserMedia) {
         getMedia({ video: { facingMode: "user", } }, success, error);//facingMode: "user" 为开启前置摄像头
     } else {
-        setCameraOff("您的设备不支持访问摄像头")
+        message.error("您的设备不支持访问摄像头")
     }
 
     function getMedia(constraints, success, error) {
@@ -101,7 +100,7 @@ function FaceCamera(props){
     return (
         <div className="camera-main">
             <div className="camera-box">
-                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}>{cameraOff}</video>
+                <video id="video" crossOrigin="anonymous" autoPlay ref={videoRef}></video>
                 <span className="takePhoto" onClick={uploadImage}>
                 <CameraOutlined className="camera-btn" />
             </span>
