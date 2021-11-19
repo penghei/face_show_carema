@@ -8,17 +8,17 @@
 
   #header {
     @include flexCenter();
+    @include headerBcg;
     height: 60px;
     width: 100%;
-    background: $headerColor;
     font-size: 16px;
   }
 
   #main {
     @include flexCenter;
+    @include mainBcg;
     flex: 1;
     width: 100%;
-    background: $mainColor;
 
     #main-block {
       width: 1000px;
