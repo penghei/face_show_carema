@@ -23,11 +23,11 @@
 }
 
 .feature-card {
+  @include cardBcg();
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 0;
-  background: $cardBcgColor;
   border-radius: 0.5em;
   padding: 0 1em;
   text-decoration: none;

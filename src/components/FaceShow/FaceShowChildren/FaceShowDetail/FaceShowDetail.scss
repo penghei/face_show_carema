@@ -3,7 +3,7 @@
 
 .face-show-detail {
   @include flexCenter();
-  background: $detailBoxBcg;
+  @include detailBoxBcg();
   border-radius: 5px;
   padding: 2em;
 

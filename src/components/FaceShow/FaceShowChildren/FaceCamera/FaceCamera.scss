@@ -2,11 +2,11 @@
 
 .camera-main {
   .camera-box {
+    @include cameraBoxBcg();
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: $cameraBoxColor;
     border-radius: 5px;
     padding: 20px 20px 10px;
 
